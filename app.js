@@ -230,24 +230,6 @@ function startExam(mode, sectionsConfig) {
       filtered = window.questionBank.filter(q => q.category === 'pass');
     } else if (config.id === 'air') {
       filtered = window.questionBank.filter(q => q.category === 'air');
-    } else if (config.id === 'weak') {
-      const catStats = {};
-      state.history.forEach(test => {
-        if (test.catBreakdown) {
-          for (const [cat, data] of Object.entries(test.catBreakdown)) {
-            if (!catStats[cat]) catStats[cat] = { total: 0, correct: 0 };
-            catStats[cat].total += data.total;
-            catStats[cat].correct += data.correct;
-          }
-        }
-      });
-      const weakCats = Object.keys(catStats).filter(cat => catStats[cat].total > 0 && (catStats[cat].correct / catStats[cat].total) < 0.80);
-      if (weakCats.length === 0) {
-        alert("You have no weak areas under 80% yet! Doing a mixed review.");
-        filtered = window.questionBank;
-      } else {
-        filtered = window.questionBank.filter(q => weakCats.includes(q.category));
-      }
     }
 
     if (filtered.length === 0) {
@@ -542,29 +524,42 @@ function finishExam() {
     score: overallCorrect,
     total: overallTotal,
     passed: passed,
-    catBreakdown: catBreakdown
+    catBreakdown: catBreakdown,
+    missed: missed,
+    sectionResults: sectionResults,
+    overallScore: overallScore,
+    anySectionFailed: anySectionFailed
   };
   state.history.unshift(record);
   localStorage.setItem('cdl_history', JSON.stringify(state.history));
 
-  // Render Results View
-  document.getElementById('res-score-text').textContent = `You scored ${overallScore}% (${overallCorrect}/${overallTotal})`;
+  renderResultsView(record);
+}
+
+function renderResultsView(record) {
+  document.getElementById('res-title').textContent = record.isReview ? "Study Review" : "Test Complete";
+  document.getElementById('res-score-text').textContent = record.isReview ? "Review your weak areas" : `You scored ${record.overallScore}% (${record.score}/${record.total})`;
   
   const badge = document.getElementById('res-pass-badge');
-  if (passed) {
-    badge.textContent = 'PASS';
-    badge.className = 'mt-4 text-lg font-bold px-4 py-2 inline-block rounded-lg bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300';
+  if (record.isReview) {
+    badge.style.display = 'none';
   } else {
-    badge.textContent = 'FAIL';
-    badge.className = 'mt-4 text-lg font-bold px-4 py-2 inline-block rounded-lg bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300';
+    badge.style.display = 'inline-block';
+    if (record.passed) {
+      badge.textContent = 'PASS';
+      badge.className = 'mt-4 text-lg font-bold px-4 py-2 inline-block rounded-lg bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300';
+    } else {
+      badge.textContent = 'FAIL';
+      badge.className = 'mt-4 text-lg font-bold px-4 py-2 inline-block rounded-lg bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300';
+    }
   }
 
   const breakdownContainer = document.getElementById('res-section-breakdown');
   const warningBox = document.getElementById('res-warning-box');
   
-  if (state.exam.sections.length > 1) {
+  if (record.sectionResults && record.sectionResults.length > 1 && !record.isReview) {
     breakdownContainer.classList.remove('hidden');
-    breakdownContainer.innerHTML = sectionResults.map(r => `
+    breakdownContainer.innerHTML = record.sectionResults.map(r => `
       <div class="bg-gray-50 dark:bg-gray-700/30 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
         <h4 class="font-bold text-gray-800 dark:text-gray-200">${r.name}</h4>
         <div class="flex justify-between items-center mt-2">
@@ -574,9 +569,9 @@ function finishExam() {
       </div>
     `).join('');
     
-    if (overallScore >= 80 && anySectionFailed) {
+    if (record.overallScore >= 80 && record.anySectionFailed) {
       warningBox.classList.remove('hidden');
-      const failedNames = sectionResults.filter(r => !r.passed).map(r => `<strong>${r.name}</strong>`).join(' and ');
+      const failedNames = record.sectionResults.filter(r => !r.passed).map(r => `<strong>${r.name}</strong>`).join(' and ');
       warningBox.innerHTML = `You passed most sections, but you need to review ${failedNames} before taking the real test.`;
     } else {
       warningBox.classList.add('hidden');
@@ -587,16 +582,18 @@ function finishExam() {
   }
 
   const list = document.getElementById('res-missed-list');
-  if (missed.length === 0) {
-    list.innerHTML = '<div class="p-6 text-center text-gray-500">Perfect score! No missed questions.</div>';
+  if (!record.missed || record.missed.length === 0) {
+    list.innerHTML = '<div class="p-6 text-center text-gray-500">Perfect score! No missed questions (or old test record).</div>';
   } else {
-    list.innerHTML = missed.map((m, idx) => `
+    list.innerHTML = record.missed.map((m, idx) => `
       <div class="p-4 sm:p-6">
-        ${state.exam.sections.length > 1 ? `<span class="inline-block px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs font-semibold rounded mb-2 text-gray-600 dark:text-gray-300">${m.sectionName}</span>` : ''}
+        ${m.sectionName ? `<span class="inline-block px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs font-semibold rounded mb-2 text-gray-600 dark:text-gray-300">${m.sectionName}</span>` : ''}
         <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-2">${idx+1}. ${m.q.q}</h4>
+        ${record.isReview ? '' : `
         <div class="text-sm mb-1 text-red-600 dark:text-red-400">
           <span class="font-semibold">You answered:</span> ${m.userAns !== null ? m.q.options[m.userAns] : 'Skipped'}
         </div>
+        `}
         <div class="text-sm mb-3 text-green-600 dark:text-green-400">
           <span class="font-semibold">Correct Answer:</span> ${m.q.options[m.q.correct]}
         </div>
@@ -610,6 +607,64 @@ function finishExam() {
   nav('results');
 }
 
+function viewPastAttempt(index) {
+  const record = state.history[index];
+  if (!record) return;
+  // Backwards compatibility
+  if (record.overallScore === undefined) {
+    record.overallScore = Math.round((record.score / record.total) * 100);
+  }
+  renderResultsView(record);
+}
+
+function reviewWeakAreas() {
+  if (!window.questionBank || window.questionBank.length === 0) {
+    alert("Question bank is empty or loading.");
+    return;
+  }
+
+  const catStats = {};
+  state.history.forEach(test => {
+    if (test.catBreakdown) {
+      for (const [cat, data] of Object.entries(test.catBreakdown)) {
+        if (!catStats[cat]) catStats[cat] = { total: 0, correct: 0 };
+        catStats[cat].total += data.total;
+        catStats[cat].correct += data.correct;
+      }
+    }
+  });
+
+  const weakCats = Object.keys(catStats).filter(cat => catStats[cat].total > 0 && (catStats[cat].correct / catStats[cat].total) < 0.80);
+
+  if (weakCats.length === 0) {
+    alert("You have no weak areas under 80% yet! Take some practice tests first.");
+    return;
+  }
+
+  let qsToReview = window.questionBank.filter(q => weakCats.includes(q.category));
+  qsToReview = shuffleArray([...qsToReview]).slice(0, 30); // show up to 30 for study
+  
+  const missedFormatted = qsToReview.map(q => ({
+    sectionName: getCatName(q.category),
+    q: q,
+    userAns: null
+  }));
+
+  const reviewRecord = {
+    isReview: true,
+    overallScore: '--',
+    score: 0,
+    total: missedFormatted.length,
+    passed: false,
+    sectionResults: [],
+    anySectionFailed: false,
+    missed: missedFormatted
+  };
+
+  renderResultsView(reviewRecord);
+}
+
+
 // --- History View ---
 function renderHistory() {
   const tbody = document.getElementById('history-table-body');
@@ -618,12 +673,12 @@ function renderHistory() {
     return;
   }
 
-  tbody.innerHTML = state.history.map(h => {
+  tbody.innerHTML = state.history.map((h, idx) => {
     const d = new Date(h.date).toLocaleDateString();
     const p = Math.round((h.score / h.total) * 100);
     const passClass = h.passed ? 'text-green-600 dark:text-green-400 font-bold' : 'text-red-600 dark:text-red-400 font-bold';
     return `
-      <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+      <tr class="hover:bg-gray-100 dark:hover:bg-gray-700/50 cursor-pointer transition-colors" onclick="viewPastAttempt(${idx})">
         <td class="p-4">${d}</td>
         <td class="p-4 capitalize">${getCatName(h.mode)}</td>
         <td class="p-4">${p}% (${h.score}/${h.total})</td>
