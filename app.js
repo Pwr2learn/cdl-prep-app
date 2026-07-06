@@ -4,7 +4,9 @@
 let state = {
   lang: localStorage.getItem('cdl_lang') || 'en',
   currentView: 'dashboard',
-  config: {},
+  config: {
+    passingScore: parseInt(localStorage.getItem('cdl_passing_score')) || 80
+  },
   exam: {
     active: false,
     mode: 'gen',
@@ -39,7 +41,14 @@ function init() {
     if (savedPool) state.pool = new Set(JSON.parse(savedPool));
   } catch(e) { console.error('Failed to load pool', e); }
 
+  } catch(e) { console.error('Failed to load pool', e); }
+
   toggleLanguage(state.lang);
+  
+  const diffSel = document.getElementById('difficulty-selector');
+  if (diffSel) diffSel.value = state.config.passingScore;
+  setDifficulty(state.config.passingScore);
+
   updateDashboardStats();
   nav('dashboard');
   
@@ -115,6 +124,14 @@ function getTranslatedQuestion(q) {
   return q;
 }
 
+function setDifficulty(score) {
+  state.config.passingScore = parseInt(score);
+  localStorage.setItem('cdl_passing_score', score);
+  
+  const els = document.querySelectorAll('.pass-req-text');
+  els.forEach(el => el.textContent = `${score}%`);
+}
+
 function toggleMobileMenu() {
   const menu = document.getElementById('mobile-menu');
   if (menu.classList.contains('hidden')) {
@@ -161,7 +178,7 @@ function updateDashboardStats() {
   let catHtml = '';
   for (const [cat, data] of Object.entries(catStats)) {
     const p = Math.round((data.correct / data.total) * 100);
-    const isWeak = p < 80;
+    const isWeak = p < state.config.passingScore;
     const color = isWeak ? 'text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-400' : 'text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400';
     
     catHtml += `
@@ -489,7 +506,7 @@ function updateProgressUI() {
   if (sectionAnswered === 0) {
     statusEl.textContent = '--';
     statusEl.className = 'font-bold text-lg text-gray-500 dark:text-gray-400';
-  } else if (sectionScore >= 80) {
+  } else if (sectionScore >= state.config.passingScore) {
     statusEl.textContent = 'Passing';
     statusEl.className = 'font-bold text-lg text-green-600 dark:text-green-400';
   } else {
@@ -532,7 +549,7 @@ function finishExam() {
     });
     
     const secScore = Math.round((secCorrect / sec.questions.length) * 100);
-    const secPassed = secScore >= 80;
+    const secPassed = secScore >= state.config.passingScore;
     if (!secPassed) anySectionFailed = true;
     
     sectionResults.push({
@@ -545,7 +562,7 @@ function finishExam() {
   });
 
   const overallScore = Math.round((overallCorrect / overallTotal) * 100);
-  const passed = overallScore >= 80 && !anySectionFailed;
+  const passed = overallScore >= state.config.passingScore && !anySectionFailed;
 
   // Save history
   const record = {
@@ -599,7 +616,7 @@ function renderResultsView(record) {
       </div>
     `).join('');
     
-    if (record.overallScore >= 80 && record.anySectionFailed) {
+    if (record.overallScore >= state.config.passingScore && record.anySectionFailed) {
       warningBox.classList.remove('hidden');
       const failedNames = record.sectionResults.filter(r => !r.passed).map(r => `<strong>${r.name}</strong>`).join(' and ');
       warningBox.innerHTML = `You passed most sections, but you need to review ${failedNames} before taking the real test.`;
@@ -667,10 +684,10 @@ function reviewWeakAreas() {
     }
   });
 
-  const weakCats = Object.keys(catStats).filter(cat => catStats[cat].total > 0 && (catStats[cat].correct / catStats[cat].total) < 0.80);
+  const weakCats = Object.keys(catStats).filter(cat => catStats[cat].total > 0 && (catStats[cat].correct / catStats[cat].total) < (state.config.passingScore / 100));
 
   if (weakCats.length === 0) {
-    alert("You have no weak areas under 80% yet! Take some practice tests first.");
+    alert(`You have no weak areas under ${state.config.passingScore}% yet! Take some practice tests first.`);
     return;
   }
 

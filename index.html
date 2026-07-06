@@ -155,7 +155,7 @@
         <div class="flex flex-col sm:flex-row gap-4">
           <button onclick="startSingleTest('weak')"
             class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors shadow-sm text-center">
-            Review Weak Areas (<80%) </button>
+            Review Weak Areas (<<span class="pass-req-text">80%</span>) </button>
               <button onclick="nav('practice')"
                 class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium transition-colors shadow-sm text-center">
                 Start Practice
@@ -171,37 +171,50 @@
           </p>
         </header>
 
+        <!-- Difficulty Selector -->
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="font-bold text-gray-800 dark:text-gray-200">Passing Difficulty</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Set the required score to pass the test.</p>
+            </div>
+            <select id="difficulty-selector" onchange="setDifficulty(this.value)" class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block p-2 outline-none">
+                <option value="80">Normal (80%)</option>
+                <option value="95">Hard (95%)</option>
+                <option value="98">Difficult (98%)</option>
+            </select>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- General Knowledge -->
           <button onclick="startSingleTest('gen')"
             class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
             <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400">Start General Knowledge Test</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">50 Questions &bull; 80% to pass</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">50 Questions &bull; <span class="pass-req-text">80%</span> to pass</p>
           </button>
           <!-- Passenger -->
           <button onclick="startSingleTest('pass')"
             class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
             <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400">Start Passenger Test</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">20 Questions &bull; 80% to pass</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">20 Questions &bull; <span class="pass-req-text">80%</span> to pass</p>
           </button>
           <!-- Air Brakes -->
           <button onclick="startSingleTest('air')"
             class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
             <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400">Start Air Brakes Test</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">25 Questions &bull; 80% to pass</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">25 Questions &bull; <span class="pass-req-text">80%</span> to pass</p>
           </button>
           <!-- Full Simulator -->
           <button onclick="startMultiTest('simulator')"
             class="bg-brand-50 dark:bg-brand-900/20 p-6 rounded-xl border border-brand-200 dark:border-brand-800 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
             <h3 class="text-xl font-bold text-brand-700 dark:text-brand-300">Start Full Study Simulator</h3>
-            <p class="text-sm text-brand-600/80 dark:text-brand-400/80 mt-1">95 Questions across 3 sections &bull; 80%
+            <p class="text-sm text-brand-600/80 dark:text-brand-400/80 mt-1">95 Questions across 3 sections &bull; <span class="pass-req-text">80%</span>
               required on EACH section</p>
           </button>
           <!-- Weak Areas Review -->
           <button onclick="reviewWeakAreas()"
             class="bg-red-50 dark:bg-red-900/20 p-6 rounded-xl border border-red-200 dark:border-red-800 shadow-sm hover:border-red-500 hover:shadow-md transition-all text-left md:col-span-2">
             <h3 class="text-xl font-bold text-red-700 dark:text-red-300">Start Weak Areas Review</h3>
-            <p class="text-sm text-red-600/80 dark:text-red-400/80 mt-1">Focus on categories where you score below 80%
+            <p class="text-sm text-red-600/80 dark:text-red-400/80 mt-1">Focus on categories where you score below <span class="pass-req-text">80%</span>
             </p>
           </button>
         </div>
