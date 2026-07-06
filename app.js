@@ -2,6 +2,7 @@
 
 // --- State ---
 let state = {
+  lang: localStorage.getItem('cdl_lang') || 'en',
   currentView: 'dashboard',
   config: {},
   exam: {
@@ -13,7 +14,8 @@ let state = {
     timerInterval: null
   },
   history: [],
-  pool: new Set()
+  pool: new Set(),
+  lastRecord: null
 };
 
 // --- Initialization ---
@@ -37,6 +39,7 @@ function init() {
     if (savedPool) state.pool = new Set(JSON.parse(savedPool));
   } catch(e) { console.error('Failed to load pool', e); }
 
+  toggleLanguage(state.lang);
   updateDashboardStats();
   nav('dashboard');
   
@@ -84,6 +87,32 @@ function toggleDarkMode() {
     document.documentElement.classList.add('dark');
     localStorage.theme = 'dark';
   }
+}
+
+function toggleLanguage(lang) {
+  state.lang = lang;
+  localStorage.setItem('cdl_lang', lang);
+  
+  const deskSel = document.getElementById('lang-selector-desktop');
+  const mobSel = document.getElementById('lang-selector-mobile');
+  if (deskSel) deskSel.value = lang;
+  if (mobSel) mobSel.value = lang;
+  
+  if (state.currentView === 'exam' && state.exam.active) {
+    renderQuestion();
+  } else if (state.currentView === 'results') {
+    if (state.lastRecord) {
+      renderResultsView(state.lastRecord);
+    }
+  }
+}
+
+function getTranslatedQuestion(q) {
+  if (state.lang === 'es' && window.questionBankEs) {
+    const esQ = window.questionBankEs.find(eq => eq.id === q.id);
+    if (esQ) return esQ;
+  }
+  return q;
 }
 
 function toggleMobileMenu() {
@@ -311,7 +340,8 @@ function updateTimer() {
 function renderQuestion() {
   const section = state.exam.sections[state.exam.currentSectionIndex];
   const i = section.currentIndex;
-  const q = section.questions[i];
+  const originalQ = section.questions[i];
+  const q = getTranslatedQuestion(originalQ);
   const ans = section.answers[i];
   
   document.getElementById('exam-subtitle').textContent = state.exam.sections.length > 1 
@@ -585,25 +615,28 @@ function renderResultsView(record) {
   if (!record.missed || record.missed.length === 0) {
     list.innerHTML = '<div class="p-6 text-center text-gray-500">Perfect score! No missed questions (or old test record).</div>';
   } else {
-    list.innerHTML = record.missed.map((m, idx) => `
+    list.innerHTML = record.missed.map((m, idx) => {
+      const q = getTranslatedQuestion(m.q);
+      return `
       <div class="p-4 sm:p-6">
         ${m.sectionName ? `<span class="inline-block px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs font-semibold rounded mb-2 text-gray-600 dark:text-gray-300">${m.sectionName}</span>` : ''}
-        <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-2">${idx+1}. ${m.q.q}</h4>
+        <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-2">${idx+1}. ${q.q}</h4>
         ${record.isReview ? '' : `
         <div class="text-sm mb-1 text-red-600 dark:text-red-400">
-          <span class="font-semibold">You answered:</span> ${m.userAns !== null ? m.q.options[m.userAns] : 'Skipped'}
+          <span class="font-semibold">${state.lang === 'es' ? 'Tu respuesta:' : 'You answered:'}</span> ${m.userAns !== null ? q.options[m.userAns] : (state.lang === 'es' ? 'Omitida' : 'Skipped')}
         </div>
         `}
         <div class="text-sm mb-3 text-green-600 dark:text-green-400">
-          <span class="font-semibold">Correct Answer:</span> ${m.q.options[m.q.correct]}
+          <span class="font-semibold">${state.lang === 'es' ? 'Respuesta correcta:' : 'Correct Answer:'}</span> ${q.options[q.correct]}
         </div>
         <div class="text-sm p-3 bg-gray-50 dark:bg-gray-700/50 rounded text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600/50">
-          <strong>Explanation:</strong> ${m.q.exp}
+          <strong>${state.lang === 'es' ? 'Explicación:' : 'Explanation:'}</strong> ${q.exp}
         </div>
       </div>
-    `).join('');
+    `}).join('');
   }
 
+  state.lastRecord = record;
   nav('results');
 }
 
