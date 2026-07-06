@@ -3,7 +3,7 @@
 // --- State ---
 let state = {
   lang: localStorage.getItem('cdl_lang') || 'en',
-  currentView: 'dashboard',
+  currentView: 'home',
   config: {
     passingScore: parseInt(localStorage.getItem('cdl_passing_score')) || 80
   },
@@ -50,7 +50,7 @@ function init() {
   setDifficulty(state.config.passingScore);
 
   updateDashboardStats();
-  nav('dashboard');
+  nav('home');
   
   // Expose global for debugging if needed
   window.appState = state;
@@ -63,7 +63,7 @@ function nav(viewId) {
     quitExam();
   }
 
-  const views = ['dashboard', 'practice', 'exam', 'results', 'history'];
+  const views = ['home', 'dashboard', 'practice', 'exam', 'results', 'history', 'help'];
   views.forEach(v => {
     document.getElementById(`view-${v}`).classList.add('hidden');
     if (document.getElementById(`nav-${v}`)) {
