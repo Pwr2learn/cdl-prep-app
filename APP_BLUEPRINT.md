@@ -60,3 +60,10 @@ As a developer maintaining this app, you must:
 2. Update the embedded HTML Help section (`view-help` in `index.html`) so users understand new features.
 3. Remove outdated instructions if a feature is deprecated.
 4. Ensure a new developer can read this blueprint and immediately understand how to compile, modify, or rebuild the application.
+
+## 7. Content Quality & Source Grounding
+The project now includes a `CDL- 10 Manual` source folder which must be used for content validation.
+
+**Content Rules:**
+- "No active question should remain in the app unless it is grounded in the CDL-10 Manual and mapped to one of the supported test banks: General Knowledge, Passenger Transport, or Air Brakes."
+- "The Bus Operator requirement document is used to validate the app scope. The CDL-10 Manual is used to validate question accuracy."

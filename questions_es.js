@@ -3406,21 +3406,6 @@ window.questionBankEs = [
     "exp": "Se requiere un endoso de Pasajeros (P) para transportar a 16 o más pasajeros, incluido el conductor."
   },
   {
-    "id": "GEN-256",
-    "category": "gen",
-    "displayCategory": "Conocimientos Generales",
-    "section": "Sección 1",
-    "q": "¿Qué endoso se necesita para un autobús escolar?",
-    "options": [
-      "Endoso de Autobús Escolar (S)",
-      "Endoso de Pasajeros (P)",
-      "Endoso de Dobles/Triples (T)",
-      "Endoso de Tanque (N)"
-    ],
-    "correct": 0,
-    "exp": "Se requiere específicamente un endoso de Autobús Escolar (S) para conducir un autobús escolar."
-  },
-  {
     "id": "GEN-257",
     "category": "gen",
     "displayCategory": "Conocimientos Generales",

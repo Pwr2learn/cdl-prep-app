@@ -3825,21 +3825,6 @@ window.questionBank = [
     "exp": "A Passenger (P) endorsement is required to transport 16 or more passengers including the driver."
   },
   {
-    "id": "GEN-256",
-    "category": "gen",
-    "displayCategory": "General Knowledge",
-    "section": "Section 1",
-    "q": "What endorsement is needed for a school bus?",
-    "options": [
-      "School Bus (S) Endorsement",
-      "Passenger (P) Endorsement",
-      "Double/Triple (T) Endorsement",
-      "Tanker (N) Endorsement"
-    ],
-    "correct": 0,
-    "exp": "A School Bus (S) endorsement is specifically required to drive a school bus."
-  },
-  {
     "id": "GEN-257",
     "category": "gen",
     "displayCategory": "General Knowledge",

@@ -75,9 +75,9 @@
       <button onclick="nav('history')"
         class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-medium transition-colors"
         id="nav-history">Past Attempts</button>
-        
+
       <div class="flex-1"></div>
-      
+
       <button onclick="nav('help')"
         class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-medium transition-colors mt-4"
         id="nav-help">Help & Support</button>
@@ -85,8 +85,8 @@
     <div class="p-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
       <select id="lang-selector-desktop" onchange="toggleLanguage(this.value)"
         class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block px-4 py-2 outline-none">
-        <option value="en">🇺🇸 English</option>
-        <option value="es">🇪🇸 Español</option>
+        <option value="en" aria-label="English">🇺🇸 English</option>
+        <option value="es" aria-label="Español">🇨🇴 Español</option>
       </select>
       <button onclick="toggleDarkMode()"
         class="w-full flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
@@ -98,12 +98,13 @@
   <!-- Mobile Header -->
   <div
     class="md:hidden fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-50 flex items-center justify-between px-4">
-    <h1 class="text-xl font-bold text-brand-600 dark:text-brand-500 cursor-pointer hover:underline" onclick="nav('home')">CDL Pro-Prep</h1>
+    <h1 class="text-xl font-bold text-brand-600 dark:text-brand-500 cursor-pointer hover:underline"
+      onclick="nav('home')">CDL Pro-Prep</h1>
     <div class="flex gap-2 items-center">
       <select id="lang-selector-mobile" onchange="toggleLanguage(this.value)"
         class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs rounded-lg focus:ring-brand-500 focus:border-brand-500 block px-2 py-1 outline-none appearance-none cursor-pointer text-center font-bold">
-        <option value="en">🇺🇸</option>
-        <option value="es">🇪🇸</option>
+        <option value="en" aria-label="English">🇺🇸</option>
+        <option value="es" aria-label="Español">🇨🇴</option>
       </select>
       <button onclick="toggleDarkMode()" class="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">🌓</button>
       <button onclick="toggleMobileMenu()" class="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">☰</button>
@@ -120,13 +121,16 @@
         <button onclick="nav('dashboard'); toggleMobileMenu()"
           class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-medium">Dashboard</button>
         <button onclick="nav('practice'); toggleMobileMenu()"
-          class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-medium">Practice Modes</button>
+          class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-medium">Practice
+          Modes</button>
         <button onclick="nav('history'); toggleMobileMenu()"
-          class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-medium">Past Attempts</button>
-          
+          class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-medium">Past
+          Attempts</button>
+
         <div class="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
           <button onclick="nav('help'); toggleMobileMenu()"
-            class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-medium">Help & Support</button>
+            class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-medium">Help &
+            Support</button>
         </div>
       </nav>
     </div>
@@ -136,342 +140,387 @@
   <main class="flex-1 flex flex-col h-screen overflow-hidden pt-16 md:pt-0">
     <div class="flex-1 overflow-y-auto p-4 md:p-8">
 
-    <div class="flex-1 overflow-y-auto p-4 md:p-8">
+      <div class="flex-1 overflow-y-auto p-4 md:p-8">
 
-      <!-- Home View -->
-      <section id="view-home" class="max-w-4xl mx-auto space-y-8">
-        <header class="text-center py-8">
-          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">Master the NYS CDL-10</h2>
-          <p class="text-xl text-gray-500 dark:text-gray-400 mt-4 max-w-2xl mx-auto">The ultimate Class B & Bus exam prep tool. Practice effectively, identify your weak areas, and pass your test with confidence.</p>
-        </header>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col items-start hover:shadow-md transition-shadow">
-            <div class="w-12 h-12 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-xl flex items-center justify-center text-2xl mb-4">📚</div>
-            <h3 class="text-2xl font-bold mb-2">Practice Modes</h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-6 flex-1">Take focused practice tests on General Knowledge, Passenger Transport, or Air Brakes. Try the Full Simulator for a real exam experience.</p>
-            <button onclick="nav('practice')" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium transition-colors w-full text-center">Start Practicing</button>
-          </div>
-          
-          <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col items-start hover:shadow-md transition-shadow">
-            <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-xl flex items-center justify-center text-2xl mb-4">📈</div>
-            <h3 class="text-2xl font-bold mb-2">Track Progress</h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-6 flex-1">View your test history, analyze your performance by category, and focus entirely on your weakest subjects.</p>
-            <button onclick="nav('dashboard')" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-lg font-medium transition-colors w-full text-center">View Dashboard</button>
-          </div>
-        </div>
-        
-        <div class="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 p-6 rounded-xl flex flex-col sm:flex-row items-center gap-6 mt-8">
-          <div class="text-4xl hidden sm:block">💡</div>
-          <div class="flex-1 text-center sm:text-left">
-            <h4 class="text-lg font-bold text-blue-900 dark:text-blue-300 mb-1">New to the app?</h4>
-            <p class="text-blue-800 dark:text-blue-400 text-sm">Read the Help & Support guide to understand how the question pool works and learn the best study strategies for passing your exam.</p>
-          </div>
-          <button onclick="nav('help')" class="px-4 py-2 w-full sm:w-auto whitespace-nowrap border border-blue-300 dark:border-blue-700 text-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-800/50 rounded-lg text-sm font-bold transition-colors">Read Guide</button>
-        </div>
-      </section>
+        <!-- Home View -->
+        <section id="view-home" class="max-w-4xl mx-auto space-y-8">
+          <header class="text-center py-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">Master the NYS
+              CDL-10</h2>
+            <p class="text-xl text-gray-500 dark:text-gray-400 mt-4 max-w-2xl mx-auto">The ultimate Class B & Bus exam
+              prep tool. Practice effectively, identify your weak areas, and pass your test with confidence.</p>
+          </header>
 
-      <!-- Dashboard View -->
-      <section id="view-dashboard" class="max-w-4xl mx-auto space-y-6">
-        <header>
-          <h2 class="text-3xl font-bold">Welcome Back</h2>
-          <p class="text-gray-500 dark:text-gray-400 mt-2">Track your progress and identify weak areas for the NYS
-            CDL-10 Class B / Bus exam.</p>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-            <h3 class="text-lg font-medium text-gray-500 dark:text-gray-400">Average Score</h3>
-            <p class="text-4xl font-bold mt-2" id="dash-avg-score">--%</p>
-          </div>
-          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-            <h3 class="text-lg font-medium text-gray-500 dark:text-gray-400">Tests Completed</h3>
-            <p class="text-4xl font-bold mt-2" id="dash-tests-taken">0</p>
-          </div>
-          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-            <h3 class="text-lg font-medium text-gray-500 dark:text-gray-400">Questions Answered</h3>
-            <p class="text-4xl font-bold mt-2" id="dash-qs-answered">0</p>
-          </div>
-        </div>
-
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-          <h3 class="text-xl font-bold mb-4">Category Performance</h3>
-          <div id="dash-category-stats" class="space-y-4">
-            <!-- Populated by JS -->
-          </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-4">
-          <button onclick="startSingleTest('weak')"
-            class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors shadow-sm text-center">
-            Review Weak Areas (<<span class="pass-req-text">80%</span>) </button>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div
+              class="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col items-start hover:shadow-md transition-shadow">
+              <div
+                class="w-12 h-12 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-xl flex items-center justify-center text-2xl mb-4">
+                📚</div>
+              <h3 class="text-2xl font-bold mb-2">Practice Modes</h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-6 flex-1">Take focused practice tests on General Knowledge,
+                Passenger Transport, or Air Brakes. Try the Full Simulator for a real exam experience.</p>
               <button onclick="nav('practice')"
-                class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium transition-colors shadow-sm text-center">
-                Start Practice
-              </button>
-        </div>
-      </section>
+                class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium transition-colors w-full text-center">Start
+                Practicing</button>
+            </div>
 
-      <!-- Practice Setup View -->
-      <section id="view-practice" class="max-w-4xl mx-auto hidden space-y-6">
-        <header>
-          <h2 class="text-3xl font-bold">Select a Practice Mode</h2>
-          <p class="text-gray-500 dark:text-gray-400 mt-2">Choose an area to study or take a comprehensive simulator.
-          </p>
-        </header>
+            <div
+              class="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col items-start hover:shadow-md transition-shadow">
+              <div
+                class="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-xl flex items-center justify-center text-2xl mb-4">
+                📈</div>
+              <h3 class="text-2xl font-bold mb-2">Track Progress</h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-6 flex-1">View your test history, analyze your performance
+                by category, and focus entirely on your weakest subjects.</p>
+              <button onclick="nav('dashboard')"
+                class="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-lg font-medium transition-colors w-full text-center">View
+                Dashboard</button>
+            </div>
+          </div>
 
-        <!-- Difficulty Selector -->
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div
+            class="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 p-6 rounded-xl flex flex-col sm:flex-row items-center gap-6 mt-8">
+            <div class="text-4xl hidden sm:block">💡</div>
+            <div class="flex-1 text-center sm:text-left">
+              <h4 class="text-lg font-bold text-blue-900 dark:text-blue-300 mb-1">New to the app?</h4>
+              <p class="text-blue-800 dark:text-blue-400 text-sm">Read the Help & Support guide to understand how the
+                question pool works and learn the best study strategies for passing your exam.</p>
+            </div>
+            <button onclick="nav('help')"
+              class="px-4 py-2 w-full sm:w-auto whitespace-nowrap border border-blue-300 dark:border-blue-700 text-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-800/50 rounded-lg text-sm font-bold transition-colors">Read
+              Guide</button>
+          </div>
+        </section>
+
+        <!-- Dashboard View -->
+        <section id="view-dashboard" class="max-w-4xl mx-auto space-y-6">
+          <header>
+            <h2 class="text-3xl font-bold">Welcome Back</h2>
+            <p class="text-gray-500 dark:text-gray-400 mt-2">Track your progress and identify weak areas for the NYS
+              CDL-10 Class B / Bus exam.</p>
+          </header>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+              <h3 class="text-lg font-medium text-gray-500 dark:text-gray-400">Average Score</h3>
+              <p class="text-4xl font-bold mt-2" id="dash-avg-score">--%</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+              <h3 class="text-lg font-medium text-gray-500 dark:text-gray-400">Tests Completed</h3>
+              <p class="text-4xl font-bold mt-2" id="dash-tests-taken">0</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+              <h3 class="text-lg font-medium text-gray-500 dark:text-gray-400">Questions Answered</h3>
+              <p class="text-4xl font-bold mt-2" id="dash-qs-answered">0</p>
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+            <h3 class="text-xl font-bold mb-4">Category Performance</h3>
+            <div id="dash-category-stats" class="space-y-4">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button onclick="startSingleTest('weak')"
+              class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors shadow-sm text-center">
+              Review Weak Areas (<<span class="pass-req-text">80%</span>) </button>
+            <button onclick="nav('practice')"
+              class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium transition-colors shadow-sm text-center">
+              Start Practice
+            </button>
+          </div>
+        </section>
+
+        <!-- Practice Setup View -->
+        <section id="view-practice" class="max-w-4xl mx-auto hidden space-y-6">
+          <header>
+            <h2 class="text-3xl font-bold">Select a Practice Mode</h2>
+            <p class="text-gray-500 dark:text-gray-400 mt-2">Choose an area to study or take a comprehensive simulator.
+            </p>
+          </header>
+
+          <!-- Difficulty Selector -->
+          <div
+            class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <h3 class="font-bold text-gray-800 dark:text-gray-200">Passing Difficulty</h3>
               <p class="text-sm text-gray-500 dark:text-gray-400">Set the required score to pass the test.</p>
             </div>
-            <select id="difficulty-selector" onchange="setDifficulty(this.value)" class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block p-2 outline-none">
-                <option value="80">Normal (80%)</option>
-                <option value="95">Hard (95%)</option>
-                <option value="98">Difficult (98%)</option>
+            <select id="difficulty-selector" onchange="setDifficulty(this.value)"
+              class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block p-2 outline-none">
+              <option value="80">Normal (80%)</option>
+              <option value="95">Hard (95%)</option>
+              <option value="98">Difficult (98%)</option>
             </select>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- General Knowledge -->
-          <button onclick="startSingleTest('gen')"
-            class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
-            <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400">Start General Knowledge Test</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">50 Questions &bull; <span class="pass-req-text">80%</span> to pass</p>
-          </button>
-          <!-- Passenger -->
-          <button onclick="startSingleTest('pass')"
-            class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
-            <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400">Start Passenger Test</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">20 Questions &bull; <span class="pass-req-text">80%</span> to pass</p>
-          </button>
-          <!-- Air Brakes -->
-          <button onclick="startSingleTest('air')"
-            class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
-            <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400">Start Air Brakes Test</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">25 Questions &bull; <span class="pass-req-text">80%</span> to pass</p>
-          </button>
-          <!-- Full Simulator -->
-          <button onclick="startMultiTest('simulator')"
-            class="bg-brand-50 dark:bg-brand-900/20 p-6 rounded-xl border border-brand-200 dark:border-brand-800 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
-            <h3 class="text-xl font-bold text-brand-700 dark:text-brand-300">Start Full Study Simulator</h3>
-            <p class="text-sm text-brand-600/80 dark:text-brand-400/80 mt-1">95 Questions across 3 sections &bull; <span class="pass-req-text">80%</span>
-              required on EACH section</p>
-          </button>
-          <!-- Weak Areas Review -->
-          <button onclick="reviewWeakAreas()"
-            class="bg-red-50 dark:bg-red-900/20 p-6 rounded-xl border border-red-200 dark:border-red-800 shadow-sm hover:border-red-500 hover:shadow-md transition-all text-left md:col-span-2">
-            <h3 class="text-xl font-bold text-red-700 dark:text-red-300">Start Weak Areas Review</h3>
-            <p class="text-sm text-red-600/80 dark:text-red-400/80 mt-1">Focus on categories where you score below <span class="pass-req-text">80%</span>
-            </p>
-          </button>
-        </div>
-
-        <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <h3 class="text-lg font-bold mb-2">Question Pool Status</h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">The app tracks which questions you've answered to
-            prevent repeats across sessions. If the pool runs low, you can reset it.</p>
-          <p class="text-sm mb-2" id="pool-stats">Total unseen questions: 0 / 0</p>
-          <button onclick="resetPool()"
-            class="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm font-medium transition-colors">
-            Reset Question Pool
-          </button>
-        </div>
-      </section>
-
-      <!-- Exam View -->
-      <section id="view-exam" class="max-w-3xl mx-auto hidden flex-col h-full">
-        <header class="flex justify-between items-center mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-          <div>
-            <h2 class="text-xl font-bold" id="exam-title">Practice Test</h2>
-            <p class="text-sm text-gray-500 dark:text-gray-400" id="exam-subtitle">Section 1 of 1</p>
-          </div>
-          <div class="text-right">
-            <div class="text-2xl font-mono" id="exam-timer">00:00</div>
-            <button onclick="quitExam()" class="text-sm text-red-500 hover:underline">Quit Test</button>
-          </div>
-        </header>
-
-        <!-- Progress Area -->
-        <div
-          class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-6 text-sm flex flex-col gap-2 shadow-sm border border-gray-200 dark:border-gray-700"
-          id="exam-progress-area">
-          <div id="overall-progress-container" class="hidden pb-2 mb-2 border-b border-gray-200 dark:border-gray-700">
-            <div class="flex justify-between mb-1">
-              <span class="font-bold">Overall Simulator Progress</span>
-              <span id="overall-progress-text">0 / 95 answered</span>
-            </div>
-            <div class="w-full bg-gray-300 dark:bg-gray-600 rounded-full h-2">
-              <div class="bg-brand-500 h-2 rounded-full" id="overall-progress-bar" style="width: 0%"></div>
-            </div>
           </div>
 
-          <div class="flex justify-between items-end mb-1">
-            <span class="font-bold" id="section-progress-title">Section Progress</span>
-            <span id="section-progress-text">0 / 20 answered</span>
-          </div>
-          <div class="w-full bg-gray-300 dark:bg-gray-600 rounded-full h-2 mb-2">
-            <div class="bg-brand-500 h-2 rounded-full" id="section-progress-bar" style="width: 0%"></div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- General Knowledge -->
+            <button onclick="startSingleTest('gen')"
+              class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
+              <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400">Start General Knowledge Test</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">50 Questions &bull; <span
+                  class="pass-req-text">80%</span> to pass</p>
+            </button>
+            <!-- Passenger -->
+            <button onclick="startSingleTest('pass')"
+              class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
+              <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400">Start Passenger Test</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">20 Questions &bull; <span
+                  class="pass-req-text">80%</span> to pass</p>
+            </button>
+            <!-- Air Brakes -->
+            <button onclick="startSingleTest('air')"
+              class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
+              <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400">Start Air Brakes Test</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">25 Questions &bull; <span
+                  class="pass-req-text">80%</span> to pass</p>
+            </button>
+            <!-- Full Simulator -->
+            <button onclick="startMultiTest('simulator')"
+              class="bg-brand-50 dark:bg-brand-900/20 p-6 rounded-xl border border-brand-200 dark:border-brand-800 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-left">
+              <h3 class="text-xl font-bold text-brand-700 dark:text-brand-300">Start Full Study Simulator</h3>
+              <p class="text-sm text-brand-600/80 dark:text-brand-400/80 mt-1">95 Questions across 3 sections &bull;
+                <span class="pass-req-text">80%</span>
+                required on EACH section</p>
+            </button>
+            <!-- Weak Areas Review -->
+            <button onclick="reviewWeakAreas()"
+              class="bg-red-50 dark:bg-red-900/20 p-6 rounded-xl border border-red-200 dark:border-red-800 shadow-sm hover:border-red-500 hover:shadow-md transition-all text-left md:col-span-2">
+              <h3 class="text-xl font-bold text-red-700 dark:text-red-300">Start Weak Areas Review</h3>
+              <p class="text-sm text-red-600/80 dark:text-red-400/80 mt-1">Focus on categories where you score below
+                <span class="pass-req-text">80%</span>
+              </p>
+            </button>
           </div>
 
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-center mt-2">
-            <div class="bg-white dark:bg-gray-700 rounded p-2 border border-gray-200 dark:border-gray-600">
-              <div class="text-xs text-gray-500 dark:text-gray-400">Correct</div>
-              <div class="font-bold text-green-600 dark:text-green-400 text-lg" id="prog-correct">0</div>
-            </div>
-            <div class="bg-white dark:bg-gray-700 rounded p-2 border border-gray-200 dark:border-gray-600">
-              <div class="text-xs text-gray-500 dark:text-gray-400">Incorrect</div>
-              <div class="font-bold text-red-600 dark:text-red-400 text-lg" id="prog-incorrect">0</div>
-            </div>
-            <div class="bg-white dark:bg-gray-700 rounded p-2 border border-gray-200 dark:border-gray-600">
-              <div class="text-xs text-gray-500 dark:text-gray-400">Score</div>
-              <div class="font-bold text-lg" id="prog-score">0%</div>
-            </div>
-            <div class="bg-white dark:bg-gray-700 rounded p-2 border border-gray-200 dark:border-gray-600">
-              <div class="text-xs text-gray-500 dark:text-gray-400">Status</div>
-              <div class="font-bold text-lg" id="prog-status">--</div>
-            </div>
+          <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-bold mb-2">Question Pool Status</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">The app tracks which questions you've answered to
+              prevent repeats across sessions. If the pool runs low, you can reset it.</p>
+            <p class="text-sm mb-2" id="pool-stats">Total unseen questions: 0 / 0</p>
+            <button onclick="resetPool()"
+              class="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm font-medium transition-colors">
+              Reset Question Pool
+            </button>
           </div>
-        </div>
+        </section>
 
-        <div class="flex-1 overflow-y-auto pb-24">
+        <!-- Exam View -->
+        <section id="view-exam" class="max-w-3xl mx-auto hidden flex-col h-full">
+          <header class="flex justify-between items-center mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <div>
+              <h2 class="text-xl font-bold" id="exam-title">Practice Test</h2>
+              <p class="text-sm text-gray-500 dark:text-gray-400" id="exam-subtitle">Section 1 of 1</p>
+            </div>
+            <div class="text-right">
+              <div class="text-2xl font-mono" id="exam-timer">00:00</div>
+              <button onclick="quitExam()" class="text-sm text-red-500 hover:underline">Quit Test</button>
+            </div>
+          </header>
+
+          <!-- Progress Area -->
           <div
-            class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mb-6">
-            <div class="flex justify-between items-start mb-3">
-              <span
-                class="inline-block px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs font-semibold rounded text-gray-600 dark:text-gray-300"
-                id="exam-q-category">Category</span>
-              <span class="text-xs font-bold text-gray-500" id="exam-q-num-badge">Q1</span>
+            class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-6 text-sm flex flex-col gap-2 shadow-sm border border-gray-200 dark:border-gray-700"
+            id="exam-progress-area">
+            <div id="overall-progress-container" class="hidden pb-2 mb-2 border-b border-gray-200 dark:border-gray-700">
+              <div class="flex justify-between mb-1">
+                <span class="font-bold">Overall Simulator Progress</span>
+                <span id="overall-progress-text">0 / 95 answered</span>
+              </div>
+              <div class="w-full bg-gray-300 dark:bg-gray-600 rounded-full h-2">
+                <div class="bg-brand-500 h-2 rounded-full" id="overall-progress-bar" style="width: 0%"></div>
+              </div>
             </div>
-            <h3 class="text-xl font-medium leading-relaxed" id="exam-q-text">Question text goes here?</h3>
-          </div>
 
-          <div class="space-y-3" id="exam-options">
-            <!-- Options injected via JS -->
-          </div>
+            <div class="flex justify-between items-end mb-1">
+              <span class="font-bold" id="section-progress-title">Section Progress</span>
+              <span id="section-progress-text">0 / 20 answered</span>
+            </div>
+            <div class="w-full bg-gray-300 dark:bg-gray-600 rounded-full h-2 mb-2">
+              <div class="bg-brand-500 h-2 rounded-full" id="section-progress-bar" style="width: 0%"></div>
+            </div>
 
-          <!-- Explanation Box (Guided Mode) -->
-          <div id="exam-explanation"
-            class="hidden mt-6 p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
-            <h4 class="font-bold text-blue-800 dark:text-blue-300 mb-1">Explanation</h4>
-            <p class="text-blue-900 dark:text-blue-100 text-sm" id="exam-exp-text">Explanation goes here.</p>
-          </div>
-        </div>
-
-        <div
-          class="fixed bottom-0 left-0 md:left-64 right-0 p-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-between">
-          <button id="btn-prev" onclick="prevQuestion()"
-            class="px-6 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg font-medium disabled:opacity-50 hidden">Previous</button>
-          <div class="flex-1"></div>
-          <button id="btn-next" onclick="nextQuestion()"
-            class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium disabled:opacity-50">Next
-            / Skip</button>
-        </div>
-      </section>
-
-      <!-- Results View -->
-      <section id="view-results" class="max-w-4xl mx-auto hidden space-y-6">
-        <header class="text-center py-8">
-          <h2 class="text-4xl font-bold mb-2" id="res-title">Test Complete</h2>
-          <p class="text-xl" id="res-score-text">You scored 85%</p>
-          <p class="mt-4 text-lg font-bold px-4 py-2 inline-block rounded-lg" id="res-pass-badge">PASS</p>
-          <div id="res-warning-box"
-            class="hidden mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-700/50 rounded-lg text-sm font-medium">
-            You passed most sections, but you need to review a specific section before taking the real test.
-          </div>
-        </header>
-
-        <div id="res-section-breakdown" class="grid gap-4 md:grid-cols-3 mb-6 hidden">
-          <!-- Populated by JS -->
-        </div>
-
-        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-          <button onclick="nav('dashboard')"
-            class="px-6 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors w-full sm:w-auto text-center">Back
-            to Dashboard</button>
-          <button onclick="nav('practice')"
-            class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium transition-colors w-full sm:w-auto text-center">New
-            Practice</button>
-        </div>
-
-        <div
-          class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
-          <div class="p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
-            <h3 class="text-lg font-bold">Review Missed Questions</h3>
-          </div>
-          <div class="divide-y divide-gray-200 dark:divide-gray-700" id="res-missed-list">
-            <!-- Missed questions injected via JS -->
-          </div>
-        </div>
-      </section>
-
-      <!-- History View -->
-      <section id="view-history" class="max-w-4xl mx-auto hidden space-y-6">
-        <header>
-          <h2 class="text-3xl font-bold">Past Attempts</h2>
-          <p class="text-gray-500 dark:text-gray-400 mt-2">Review your previous test scores.</p>
-        </header>
-
-        <div
-          class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-700">
-                <th class="p-4 font-medium text-sm text-gray-500 dark:text-gray-400">Date</th>
-                <th class="p-4 font-medium text-sm text-gray-500 dark:text-gray-400">Mode</th>
-                <th class="p-4 font-medium text-sm text-gray-500 dark:text-gray-400">Score</th>
-                <th class="p-4 font-medium text-sm text-gray-500 dark:text-gray-400">Result</th>
-              </tr>
-            </thead>
-            <tbody id="history-table-body" class="divide-y divide-gray-200 dark:divide-gray-700">
-              <!-- History injected via JS -->
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Help View -->
-      <section id="view-help" class="max-w-4xl mx-auto hidden space-y-6 pb-12">
-        <header>
-          <h2 class="text-3xl font-bold">Help & Support</h2>
-          <p class="text-gray-500 dark:text-gray-400 mt-2">A quick manual on how to use the CDL Pro-Prep Portal.</p>
-        </header>
-
-        <div class="space-y-6">
-          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-            <h3 class="text-xl font-bold mb-3 text-brand-600 dark:text-brand-400">What is this app for?</h3>
-            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">This application is a focused study tool designed to help you prepare for the New York State CDL-10 Class B and Bus exams. It contains over 400 unique practice questions covering General Knowledge, Passenger Transport, Air Brakes, and Pre-Trip inspections. The questions are available in both English and official DMV-accurate Spanish.</p>
-          </div>
-
-          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-            <h3 class="text-xl font-bold mb-3 text-brand-600 dark:text-brand-400">How Practice Modes Work</h3>
-            <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
-              <li><strong>Individual Tests:</strong> Focus on one specific area (e.g., Air Brakes) at a time.</li>
-              <li><strong>Full Simulator:</strong> A comprehensive test that simulates the real exam, pulling questions from General Knowledge, Passenger, and Air Brakes. You must pass <em>each</em> section to pass the simulator.</li>
-              <li><strong>Weak Areas Review:</strong> Generates a custom test containing only questions from categories where your average score is below the required passing threshold.</li>
-            </ul>
-          </div>
-
-          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-            <h3 class="text-xl font-bold mb-3 text-brand-600 dark:text-brand-400">The Question Pool</h3>
-            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">To ensure you study effectively, this app tracks which questions you have already answered. When you start a new practice test, it will prioritize <strong>unseen questions</strong>. This prevents you from memorizing the same repeated questions and forces you to learn the entire manual.</p>
-            <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-sm text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
-              <strong>Tip:</strong> If you run out of unseen questions in a category, the app will prompt you to reset the pool. You can also manually reset your question pool at the bottom of the Practice Modes page.
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-center mt-2">
+              <div class="bg-white dark:bg-gray-700 rounded p-2 border border-gray-200 dark:border-gray-600">
+                <div class="text-xs text-gray-500 dark:text-gray-400">Correct</div>
+                <div class="font-bold text-green-600 dark:text-green-400 text-lg" id="prog-correct">0</div>
+              </div>
+              <div class="bg-white dark:bg-gray-700 rounded p-2 border border-gray-200 dark:border-gray-600">
+                <div class="text-xs text-gray-500 dark:text-gray-400">Incorrect</div>
+                <div class="font-bold text-red-600 dark:text-red-400 text-lg" id="prog-incorrect">0</div>
+              </div>
+              <div class="bg-white dark:bg-gray-700 rounded p-2 border border-gray-200 dark:border-gray-600">
+                <div class="text-xs text-gray-500 dark:text-gray-400">Score</div>
+                <div class="font-bold text-lg" id="prog-score">0%</div>
+              </div>
+              <div class="bg-white dark:bg-gray-700 rounded p-2 border border-gray-200 dark:border-gray-600">
+                <div class="text-xs text-gray-500 dark:text-gray-400">Status</div>
+                <div class="font-bold text-lg" id="prog-status">--</div>
+              </div>
             </div>
           </div>
 
-          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-            <h3 class="text-xl font-bold mb-3 text-brand-600 dark:text-brand-400">Changing Languages & Difficulty</h3>
-            <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
-              <li><strong>Language:</strong> Use the language selector in the sidebar (or mobile menu) to switch between English and Spanish. This changes the language of the test questions instantly. The main navigation remains in English.</li>
-              <li><strong>Difficulty:</strong> On the Practice Modes page, use the difficulty selector to change the required passing score (Normal 80%, Hard 95%, Difficult 98%). This affects how your Weak Areas are calculated.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+          <div class="flex-1 overflow-y-auto pb-24">
+            <div
+              class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mb-6">
+              <div class="flex justify-between items-start mb-3">
+                <span
+                  class="inline-block px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs font-semibold rounded text-gray-600 dark:text-gray-300"
+                  id="exam-q-category">Category</span>
+                <span class="text-xs font-bold text-gray-500" id="exam-q-num-badge">Q1</span>
+              </div>
+              <h3 class="text-xl font-medium leading-relaxed" id="exam-q-text">Question text goes here?</h3>
+            </div>
 
-    </div>
+            <div class="space-y-3" id="exam-options">
+              <!-- Options injected via JS -->
+            </div>
+
+            <!-- Explanation Box (Guided Mode) -->
+            <div id="exam-explanation"
+              class="hidden mt-6 p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+              <h4 class="font-bold text-blue-800 dark:text-blue-300 mb-1">Explanation</h4>
+              <p class="text-blue-900 dark:text-blue-100 text-sm" id="exam-exp-text">Explanation goes here.</p>
+            </div>
+          </div>
+
+          <div
+            class="fixed bottom-0 left-0 md:left-64 right-0 p-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-between">
+            <button id="btn-prev" onclick="prevQuestion()"
+              class="px-6 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg font-medium disabled:opacity-50 hidden">Previous</button>
+            <div class="flex-1"></div>
+            <button id="btn-next" onclick="nextQuestion()"
+              class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium disabled:opacity-50">Next
+              / Skip</button>
+          </div>
+        </section>
+
+        <!-- Results View -->
+        <section id="view-results" class="max-w-4xl mx-auto hidden space-y-6">
+          <header class="text-center py-8">
+            <h2 class="text-4xl font-bold mb-2" id="res-title">Test Complete</h2>
+            <p class="text-xl" id="res-score-text">You scored 85%</p>
+            <p class="mt-4 text-lg font-bold px-4 py-2 inline-block rounded-lg" id="res-pass-badge">PASS</p>
+            <div id="res-warning-box"
+              class="hidden mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-700/50 rounded-lg text-sm font-medium">
+              You passed most sections, but you need to review a specific section before taking the real test.
+            </div>
+          </header>
+
+          <div id="res-section-breakdown" class="grid gap-4 md:grid-cols-3 mb-6 hidden">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+            <button onclick="nav('dashboard')"
+              class="px-6 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors w-full sm:w-auto text-center">Back
+              to Dashboard</button>
+            <button onclick="nav('practice')"
+              class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium transition-colors w-full sm:w-auto text-center">New
+              Practice</button>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+              <h3 class="text-lg font-bold">Review Missed Questions</h3>
+            </div>
+            <div class="divide-y divide-gray-200 dark:divide-gray-700" id="res-missed-list">
+              <!-- Missed questions injected via JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- History View -->
+        <section id="view-history" class="max-w-4xl mx-auto hidden space-y-6">
+          <header>
+            <h2 class="text-3xl font-bold">Past Attempts</h2>
+            <p class="text-gray-500 dark:text-gray-400 mt-2">Review your previous test scores.</p>
+          </header>
+
+          <div
+            class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-700">
+                  <th class="p-4 font-medium text-sm text-gray-500 dark:text-gray-400">Date</th>
+                  <th class="p-4 font-medium text-sm text-gray-500 dark:text-gray-400">Mode</th>
+                  <th class="p-4 font-medium text-sm text-gray-500 dark:text-gray-400">Score</th>
+                  <th class="p-4 font-medium text-sm text-gray-500 dark:text-gray-400">Result</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-body" class="divide-y divide-gray-200 dark:divide-gray-700">
+                <!-- History injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Help View -->
+        <section id="view-help" class="max-w-4xl mx-auto hidden space-y-6 pb-12">
+          <header>
+            <h2 class="text-3xl font-bold">Help & Support</h2>
+            <p class="text-gray-500 dark:text-gray-400 mt-2">A quick manual on how to use the CDL Pro-Prep Portal.</p>
+          </header>
+
+          <div class="space-y-6">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+              <h3 class="text-xl font-bold mb-3 text-brand-600 dark:text-brand-400">What is this app for?</h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">This application is a focused study tool
+                designed to help you prepare for the New York State CDL-10 Class B and Bus exams. It contains over 400
+                unique practice questions covering General Knowledge, Passenger Transport, Air Brakes, and Pre-Trip
+                inspections. The questions are available in both English and official DMV-accurate Spanish.</p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+              <h3 class="text-xl font-bold mb-3 text-brand-600 dark:text-brand-400">Content Accuracy (CDL-10 Grounding)</h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">All questions in this application are strictly grounded in the official New York State CDL-10 Commercial Driver’s Manual. No active question remains in the app unless it is mapped to one of the supported test banks (General Knowledge, Passenger Transport, or Air Brakes). School bus-specific material is deliberately excluded.</p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+              <h3 class="text-xl font-bold mb-3 text-brand-600 dark:text-brand-400">How Practice Modes Work</h3>
+              <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                <li><strong>Individual Tests:</strong> Focus on one specific area (e.g., Air Brakes) at a time.</li>
+                <li><strong>Full Simulator:</strong> A comprehensive test that simulates the real exam, pulling
+                  questions from General Knowledge, Passenger, and Air Brakes. You must pass <em>each</em> section to
+                  pass the simulator.</li>
+                <li><strong>Weak Areas Review:</strong> Generates a custom test containing only questions from
+                  categories where your average score is below the required passing threshold.</li>
+              </ul>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+              <h3 class="text-xl font-bold mb-3 text-brand-600 dark:text-brand-400">The Question Pool</h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">To ensure you study effectively, this app
+                tracks which questions you have already answered. When you start a new practice test, it will prioritize
+                <strong>unseen questions</strong>. This prevents you from memorizing the same repeated questions and
+                forces you to learn the entire manual.</p>
+              <div
+                class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-sm text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                <strong>Tip:</strong> If you run out of unseen questions in a category, the app will prompt you to reset
+                the pool. You can also manually reset your question pool at the bottom of the Practice Modes page.
+              </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+              <h3 class="text-xl font-bold mb-3 text-brand-600 dark:text-brand-400">Changing Languages & Difficulty</h3>
+              <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                <li><strong>Language:</strong> Use the language selector in the sidebar (or mobile menu) to switch
+                  between English and Spanish. This changes the language of the test questions instantly. The main
+                  navigation remains in English.</li>
+                <li><strong>Difficulty:</strong> On the Practice Modes page, use the difficulty selector to change the
+                  required passing score (Normal 80%, Hard 95%, Difficult 98%). This affects how your Weak Areas are
+                  calculated.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </div>
   </main>
 
   <script src="questions.js"></script>
