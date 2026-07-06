@@ -41,8 +41,6 @@ function init() {
     if (savedPool) state.pool = new Set(JSON.parse(savedPool));
   } catch(e) { console.error('Failed to load pool', e); }
 
-  } catch(e) { console.error('Failed to load pool', e); }
-
   toggleLanguage(state.lang);
   
   const diffSel = document.getElementById('difficulty-selector');
